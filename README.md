@@ -1,6 +1,6 @@
 ![my badge](https://img.shields.io/badge/Made%20with-React-blue?style=for-the-badge&logo=React)  &nbsp;  &nbsp; ![my badge](https://img.shields.io/github/last-commit/Shubh99992/Ecommerce-Website?style=for-the-badge) 
 # Hi Everyone!
-Today's Project is based on Flask language 
+Today's Project is based on React FrameWork
 
 # Title: Ecommerce Website Gameing Paradise :exclamation:
 
