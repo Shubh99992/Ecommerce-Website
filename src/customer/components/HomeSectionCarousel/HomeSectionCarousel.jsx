@@ -1,30 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
+import { Button } from '@mui/material';
 import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { mens_kurta } from '../../../Data/mens_kurta';
+
 function HomeSectionCarousel() {
-    const responsive = {
-        0: { items: 1 },
-        720: { items: 4 },
-        1024: { items: 5 },
-    };
-    const items=[1,1,1,1,1].map((item)=><HomeSectionCard/>)
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const responsive = {
+    0: { items: 1 },
+    720: { items: 3 },
+    1024: { items: 5.5 },
+  };
+  const slidePrev = () => setActiveIndex(activeIndex - 1);
+  const slideNext = () => setActiveIndex(activeIndex + 1)
+
+  const syncActiveIndex = ({ item }) => setActiveIndex(item);
+
+  const items = mens_kurta.slice(0, 10).map((item) => <HomeSectionCard product={item} />)
   return (
-    <div className='relative px-4 lg:px-8'>
-        <div className='relative p-5 '>
-         <AliceCarousel
-    items={items}
-    responsive={responsive}
-    disableButtonsControls
-    autoPlay
-    autoPlayInterval={5000}
-    infinite
-/>
-<button varient="cntained" className="z-50" sx={{position:'absolute', top:"8rem", right:"0rem", transform:"translateX(50%) rotate(90deg)"}} aria-label='next'>
-    <ChevronLeftIcon/>
-</button>
-    </div>
+    <div className='border'>
+      <div className='relative p-5 '>
+        <AliceCarousel
+          items={items}
+          disableButtonsControls
+          responsive={responsive}
+          disableDotsControls
+          onSlideChanged={syncActiveIndex}
+          activeIndex={activeIndex}
+        />
+        {activeIndex !== items.length - 5 && <Button onClick={slideNext} variant="contained" className="z-50 bg-white " sx={{ position: 'absolute', top: "8rem", right: "0rem", transform: "translateX(50%) rotate(90deg)", bgcolor: "white" }} aria-label="next">
+          <KeyboardArrowLeftIcon sx={{ transform: "rotate(90deg)", color: "black" }} />
+        </Button >}
+
+        <Button onClick={slidePrev} variant="contained" className="z-50 bg-white " sx={{ position: 'absolute', top: "8rem", left: "0rem", transform: "translateX(-50%) rotate(-90deg)", bgcolor: "white" }} aria-label="next">
+          <KeyboardArrowLeftIcon sx={{ transform: "rotate(90deg)", color: "black" }} />
+        </Button >
+      </div>
     </div>
   )
 }
