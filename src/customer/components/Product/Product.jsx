@@ -22,7 +22,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { useLocation, useNavigate } from "react-router-dom";
 // import FilterListIcon from '@mui/icons-material/FilterList';  //i will use it letter
 
-/* need to customize the filter and adding logo of filter*/
+/* need to customize the filter and adding logo of filter*/ //this is done
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

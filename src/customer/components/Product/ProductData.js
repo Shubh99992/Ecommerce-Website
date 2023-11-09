@@ -1,14 +1,3 @@
-// export const color=[
-//     'red',
-//     'green',
-//     'yellow',
-//     'pink',
-//     'orange',
-//     'black',
-//     'white',
-// ]
-
-
 export const filters=[
     {
         id:'color',
