@@ -5,6 +5,10 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 // import { mens_kurta } from "../../../Data/mens_kurta";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
+// this code for checking , and now it is not been in use -----------------
+
+
+
 
 // const items = [
 //   <div className="item" data-value="1">
