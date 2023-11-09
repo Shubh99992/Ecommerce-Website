@@ -4,7 +4,6 @@ import HomeSectionCarousel from '../../components/HomeSectionCarousel/HomeSectio
 import { mens_kurta } from "../../../Data/mens_kurta";
 // import Hometwo from '../../components/HomeSectionCarousel/Hometwo';
 
-
 function HomePage() {
   return (
     <div>
