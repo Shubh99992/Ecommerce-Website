@@ -16,6 +16,7 @@ function HomeSectionCarousel({data,SectionName}) {
   const slideNext = () => setActiveIndex(activeIndex + 1);
 
   const syncActiveIndex = ({ item }) => setActiveIndex(item);
+  // this is for checking 
   // function hello(){
   //   alert("hello")
   // }
