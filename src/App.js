@@ -6,7 +6,6 @@ import ProductDetail from './customer/components/ProductDetails/ProductDetail.js
 
 // import Product from './customer/components/Product/Product.jsx';
 
-
 function App() {
   return (
     <div className="App">
