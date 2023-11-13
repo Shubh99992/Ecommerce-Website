@@ -3,7 +3,7 @@ import "./ProductCard.css"
 
 const ProductCard = ({product}) => {
   return (
-    <div className='productCard w-[15rem] m-3 transition-all cursor-pointer'>
+    <div className='productCard w-[15rem] m-3 transition-all cursor-pointer max-[415px]:w-[24rem] '>
         <div className="h-[20rem]">
             <img className="h-full w-full object-cover object-left-top" src={product.imageUrl} alt="" />
         </div>

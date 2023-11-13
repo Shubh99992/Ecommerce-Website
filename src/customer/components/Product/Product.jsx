@@ -30,43 +30,39 @@ function classNames(...classes) {
 
 export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
- 
-  const location=useLocation()
-  const navigate=useNavigate();
- // searchParamms for singleFilter starts ----------------------------
-  const handleFilter=(value, sectionId)=>{
-    const searchParamms=new URLSearchParams(location.search)
 
-    let filterValue=searchParamms.getAll(sectionId)
+  const location = useLocation();
+  const navigate = useNavigate();
+  // searchParamms for singleFilter starts ----------------------------
+  const handleFilter = (value, sectionId) => {
+    const searchParamms = new URLSearchParams(location.search);
 
-    if (filterValue.length>0 && filterValue[0].split(",").includes(value)){
+    let filterValue = searchParamms.getAll(sectionId);
 
-      filterValue=filterValue[0].split(",").filter((item)=>item!==value);
+    if (filterValue.length > 0 && filterValue[0].split(",").includes(value)) {
+      filterValue = filterValue[0].split(",").filter((item) => item !== value);
 
-      if(filterValue.length===0){
-        searchParamms.delete(sectionId)
+      if (filterValue.length === 0) {
+        searchParamms.delete(sectionId);
         // console.log("Delete is working")
       }
       // console.log("includes,",value,sectionId,filterValue)
+    } else {
+      filterValue.push(value);
     }
-    else{
-      filterValue.push(value)
+    if (filterValue.length > 0) {
+      searchParamms.set(sectionId, filterValue.join(","));
     }
-    if (filterValue.length>0){
-      searchParamms.set(sectionId,filterValue.join(","));
-    }
-    const query=searchParamms.toString();
-    navigate({search:`?${query}`})
-  }
-// searchParamms for singleFilter ends-----------------------------------------------
-const handleRadioFilterChange=(e,sectionId)=>{
-  const searchParamms=new URLSearchParams(location.search)
-  searchParamms.set(sectionId,e.target.value)
-  const query=searchParamms.toString();
-    navigate({search:`?${query}`})
-}
-
-
+    const query = searchParamms.toString();
+    navigate({ search: `?${query}` });
+  };
+  // searchParamms for singleFilter ends-----------------------------------------------
+  const handleRadioFilterChange = (e, sectionId) => {
+    const searchParamms = new URLSearchParams(location.search);
+    searchParamms.set(sectionId, e.target.value);
+    const query = searchParamms.toString();
+    navigate({ search: `?${query}` });
+  };
 
   return (
     <div className="bg-white">
@@ -245,7 +241,7 @@ const handleRadioFilterChange=(e,sectionId)=>{
                 className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                 onClick={() => setMobileFiltersOpen(true)}
               >
-                <span className="sr-only">Filters</span>
+                <span className="sr-only ">Filters</span>
                 <FunnelIcon className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
@@ -259,10 +255,11 @@ const handleRadioFilterChange=(e,sectionId)=>{
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
               {/* Filters */}
               <div>
-                <div className="py-10 flex justify-between item-center">
-                  <h1 className="text-lg opacity-50 font-bold ">Filters</h1>
+                <div className="hidden md:flex justify-between items-center py-10">
+                  <h1 className="text-lg opacity-50 font-bold">Filters</h1>
                   <FilterListIcon />
                 </div>
+
                 <form className="hidden lg:block">
                   {filters.map((section) => (
                     <Disclosure
@@ -300,7 +297,9 @@ const handleRadioFilterChange=(e,sectionId)=>{
                                   className="flex items-center"
                                 >
                                   <input
-                                  onChange={()=>handleFilter(option.value,section.id)}  //putting the searchParamms / and calling handleFilter function
+                                    onChange={() =>
+                                      handleFilter(option.value, section.id)
+                                    } //putting the searchParamms / and calling handleFilter function
                                     id={`filter-${section.id}-${optionIdx}`}
                                     name={`${section.id}[]`}
                                     defaultValue={option.value}
@@ -365,7 +364,10 @@ const handleRadioFilterChange=(e,sectionId)=>{
                                 >
                                   {section.options.map((option, optionIdx) => (
                                     <>
-                                      <FormControlLabel onChange={(e)=>handleRadioFilterChange(e,section.id)}
+                                      <FormControlLabel
+                                        onChange={(e) =>
+                                          handleRadioFilterChange(e, section.id)
+                                        }
                                         value={option.value}
                                         control={<Radio />}
                                         label={option.label}
@@ -385,7 +387,7 @@ const handleRadioFilterChange=(e,sectionId)=>{
 
               {/* Product grid */}
               <div className="lg:col-span-4 w-full">
-                <div className="flex flex-wrap justtify-center bg-white py-5">
+                <div className="flex flex-wrap justtify-center bg-white py-5 gap-6">
                   {mens_kurta.map((item) => (
                     <ProductCard product={item} />
                   ))}

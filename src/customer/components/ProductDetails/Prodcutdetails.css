@@ -1,0 +1,43 @@
+/* Default styles for larger screens */
+.bg-white {
+  background-color: white;
+}
+
+/* Responsive adjustments for tablets */
+@media (max-width: 768px) {
+  .lg:px-20 {
+    padding: 0 20px;
+  }
+  .lg:max-w-2xl {
+    max-width: 100%;
+  }
+  /* Add more responsive adjustments as needed */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  .lg:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .lg:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+  .lg:col-span-2 {
+    grid-column: span 1 / span 1;
+  }
+  /* Add more responsive adjustments as needed */
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 360px) {
+  .lg:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  .lg:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+  .lg:col-span-2 {
+    grid-column: span 1 / span 1;
+  }
+  /* Add more responsive adjustments as needed */
+}
