@@ -4,24 +4,31 @@ import { Button } from "@mui/material";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 
-function HomeSectionCarousel({data,SectionName}) {
-    const [activeIndex,setActiveIndex]=useState(0);
-
+function HomeSectionCarousel({ data, SectionName }) {
   const responsive = {
     0: { items: 1 },
     720: { items: 3 },
     1024: { items: 5.5 },
   };
-  const slidePrev = () => setActiveIndex(activeIndex - 1);
-  const slideNext = () => setActiveIndex(activeIndex + 1);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const carouselInstance = React.useRef();
+
+  const slideNext = () => {
+    carouselInstance.current.slideNext();
+    setActiveIndex((prevIndex) => (prevIndex + 1) % data.length);
+  };
+
+  const slidePrev = () => {
+    carouselInstance.current.slidePrev();
+    setActiveIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
+  };
 
   const syncActiveIndex = ({ item }) => setActiveIndex(item);
-  // this is for checking 
-  // function hello(){
-  //   alert("hello")
-  // }
-  const items = data.slice(0,10).map((item) => <HomeSectionCard product={item} />);
 
+  const items = data.slice(0, 10).map((item) => <HomeSectionCard product={item} />);
+  
   return (
     <div className="border">
       <h2 className="text-2xl font-extrabold textgrey-800 py-5">{SectionName}</h2>
@@ -31,11 +38,10 @@ function HomeSectionCarousel({data,SectionName}) {
           disableButtonsControls
           responsive={responsive}
           disableDotsControls
-          onSlideChange={syncActiveIndex}
-          activeIndex={activeIndex}
-          // playButtonEnabled={true}
+          onSlideChanged={syncActiveIndex}  // Use onSlideChanged instead of onSlideChange
+          ref={carouselInstance}
         />
-        {activeIndex !== items.length -5 && 
+        {activeIndex !== items.length - 4 && (
           <Button
             variant="contained"
             className="z-50 bg-white "
@@ -46,34 +52,37 @@ function HomeSectionCarousel({data,SectionName}) {
               right: "0rem",
               transform: "translateX(50%) rotate(90deg)",
               bgcolor: "white",
+              "@media (max-width: 768px)": {
+                top: "5rem",
+              },
             }}
             aria-label="next"
           >
-            <KeyboardArrowLeftIcon
-              sx={{ transform: "rotate(90deg)", color: "black" }}
-            />
+            <KeyboardArrowLeftIcon sx={{ transform: "rotate(90deg)", color: "black" }} />
           </Button>
-        }
+        )}
 
-       {activeIndex !== 0 && <Button
-          onClick={slidePrev}
-          variant="contained"
-          className="z-50 bg-white "
-          sx={{
-            position: "absolute",
-            top: "8rem",
-            left: "0rem",
-            transform: "translateX(-50%) rotate(-90deg)",
-            bgcolor: "white",
-          }}
-          aria-label="next"
-        >
-          <KeyboardArrowLeftIcon
-            sx={{ transform: "rotate(90deg)", color: "black" }}
-          />
-        </Button>}
+        {activeIndex !== 0 && (
+          <Button
+            onClick={slidePrev}
+            variant="contained"
+            className="z-50 bg-white "
+            sx={{
+              position: "absolute",
+              top: "8rem",
+              left: "0rem",
+              transform: "translateX(-50%) rotate(-90deg)",
+              bgcolor: "white",
+              "@media (max-width: 768px)": {
+                top: "5rem",
+              },
+            }}
+            aria-label="next"
+          >
+            <KeyboardArrowLeftIcon sx={{ transform: "rotate(90deg)", color: "black" }} />
+          </Button>
+        )}
       </div>
-      
     </div>
   );
 }
