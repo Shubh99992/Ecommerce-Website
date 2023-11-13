@@ -1,0 +1,19 @@
+.shubh{
+    text-align:justify ;
+}
+/* Default styles for larger screens */
+.cart-container {
+    display: grid;
+    grid-template-columns: 1fr 300px; /* Adjust the second value for the width of the summary container */
+    gap: 20px;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .cart-container {
+      grid-template-columns: 1fr; /* Display items in a single column on smaller screens */
+    }
+    
+    }
+  
+  
