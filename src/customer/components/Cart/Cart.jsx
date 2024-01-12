@@ -2,6 +2,7 @@ import React from "react";
 import CartItems from "./CartItems";
 import { Button } from "@mui/base";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const extraStyle = {
@@ -12,6 +13,10 @@ const Cart = () => {
     width: "100%", // Make sure it takes the full width on smaller screens
   };
 
+  const navigate=useNavigate();
+  const handleCheckout=()=>{
+    navigate("/checkout?step=2")
+  }
   return (
     <div>
       <div className="lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 relative">
@@ -51,7 +56,7 @@ const Cart = () => {
                 <span className="text-green-600">You will save ₹3,419 on this order </span>
               </div>
             </div>
-            <Button
+            <Button onClick={handleCheckout}
               type="submit"
               className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-1.5 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
