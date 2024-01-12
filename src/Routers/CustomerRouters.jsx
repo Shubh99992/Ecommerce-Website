@@ -9,9 +9,11 @@ import Cart from '../customer/components/Cart/Cart.jsx';
 import Checkout from '../customer/components/Checkout/Checkout.jsx';
 import Order from '../customer/components/Order/Order.jsx';
 import OrderDetails from '../customer/components/Order/OrderDetails.jsx';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 const CustomerRouters = () => {
   return (
     <div>
+      <div> <SpeedInsights /></div>
         <div>
         <Navigation/> 
         </div>
@@ -24,11 +26,6 @@ const CustomerRouters = () => {
             <Route path='/checkout' element={<Checkout/>}></Route>
             <Route path='/account/order' element={<Order/>}></Route>
             <Route path='/account/order/:orderId' element={<OrderDetails/>}></Route>
-            
-           
-      
-      
-    
          </Routes>
          <homePage/>
          <div>
