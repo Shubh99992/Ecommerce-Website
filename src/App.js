@@ -1,21 +1,14 @@
 import './App.css';
-import Navigation from './customer/components/Navigation/Navigation.jsx';
-// import HomePage from './customer/Pages/HomePage/HomePage.jsx';
-import Footer from './customer/components/Footer/Footer.jsx';
-import ProductDetail from './customer/components/ProductDetails/ProductDetail.jsx';
+import { Route, Routes } from 'react-router-dom';
+import CustomerRouters from './Routers/CustomerRouters.jsx';
 
-// import Product from './customer/components/Product/Product.jsx';
 
 function App() {
   return (
-    <div className="App">
-      <Navigation/>
-    <div>
-      {/* <HomePage/> */}
-      {/* <Product/> */}
-      <ProductDetail/>
-    </div>
-    <Footer/>
+    <div className="">
+      <Routes>
+        <Route path='/*' element={<CustomerRouters/>}></Route>
+      </Routes>
     </div>
   );
 }
