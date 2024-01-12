@@ -1,0 +1,14 @@
+/* Responsive styles for screens smaller than 600px */
+@media (max-width: 600px) {
+  .mt-10 {
+    margin-top: 5px; /* Adjust as needed */
+  }
+
+  .px-10 {
+    padding: 5px; /* Adjust as needed */
+  }
+
+  .lg\:px-20 {
+    padding: 10px; /* Adjust as needed */
+  }
+}

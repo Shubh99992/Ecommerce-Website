@@ -1,0 +1,12 @@
+@media (max-width: 600px) {
+  .billu,
+  .billu2 {
+    padding: 1rem; /* Adjust padding for smaller screens */
+    margin: 2rem 0rem 1rem 2rem;; /* Center-align the element horizontally */
+    max-width: 90%; /* Set a maximum width for small screens */
+  }
+
+}
+.billu2 {
+  margin: 2px 70px 2px 65px;/* Adjust top margin for the inner container */
+}
