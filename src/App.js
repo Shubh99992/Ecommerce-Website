@@ -7,8 +7,8 @@ function App() {
   return (
     
     <div className="">
-      <SpeedInsights />
       <Routes>
+      <SpeedInsights />
         <Route path='/*' element={<CustomerRouters/>}></Route>
       </Routes>
     </div>
