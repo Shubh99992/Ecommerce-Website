@@ -3,7 +3,7 @@ import AliceCarousel from "react-alice-carousel";
 import { Button } from "@mui/material";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+
 function HomeSectionCarousel({ data, SectionName }) {
   const responsive = {
     0: { items: 1 },
@@ -33,7 +33,6 @@ function HomeSectionCarousel({ data, SectionName }) {
     <div className="border">
       <h2 className="text-2xl font-extrabold textgrey-800 py-5">{SectionName}</h2>
       <div className="relative p-5 ">
-        <div><SpeedInsights /></div>
         <AliceCarousel
           items={items}
           disableButtonsControls
