@@ -8,12 +8,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { navigation } from "./navigationData";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Menu } from "@mui/icons-material";
-import { MenuItem } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import { deepPurple } from "@mui/material/colors";
 import { Category, Logout } from '@mui/icons-material';
-
+import Button from '@mui/material/Button';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
+import * as React from 'react';
 
 // import AuthModal from "../Auth/AuthModal";
 // import {useDispatch, useSelector} from "react-redux";
@@ -21,11 +27,50 @@ import { Category, Logout } from '@mui/icons-material';
 // import {getCart} from "../../../Redux/Customers/Cart/Action";
 
 
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navigation() {
+
+  // Menu 
+const anchorRefMenu = React.useRef(null);
+const [openMenu, setOpenMenu] = React.useState(false);
+const handleToggleMenu = () => {
+  setOpenMenu((prevOpenMenu) => !prevOpenMenu);
+};
+
+const handleCloseMenu = (event) => {
+  if (anchorRefMenu.current && anchorRefMenu.current.contains(event.target)) {
+    return;
+  }
+
+  setOpenMenu(false);
+};
+
+function handleListKeyDown(event) {
+  if (event.key === 'Tab') {
+    event.preventDefault();
+    setOpenMenu(false);
+  } else if (event.key === 'Escape') {
+    setOpenMenu(false);
+  }
+}
+
+// return focus to the button when we transitioned from !open -> open
+const prevOpenMenu = React.useRef(openMenu);
+React.useEffect(() => {
+  if (prevOpenMenu.current === true && openMenu === false) {
+    anchorRefMenu.current.focus();
+  }
+
+  prevOpenMenu.current = openMenu;
+}, [openMenu]);
+
+
+
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   // const dispatch =usedispatch();
@@ -43,11 +88,11 @@ export default function Navigation() {
   //   }
   // }, [jwt]);
 
-  const handleUserClick=(e)=>{
+  const handleUserClick = (e) => {
     setAnchorE1(e.currentTarget);
   };
 
-  const handleCloseUserMenu=(e)=>{
+  const handleCloseUserMenu = (e) => {
     setAnchorE1(null);
   }
 
@@ -77,8 +122,10 @@ export default function Navigation() {
   //   handleCloseUserMenu()
   //   navigate("/account/order ")
   // }
+  const [menu, setMenu] = useState(false)
 
   return (
+
     <div className="bg-white pb-10">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
@@ -414,43 +461,73 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true?(<div><Avatar
-                    className="text-white"
-                    onClick={handleUserClick}
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    sx={{
-                      bgcolor: deepPurple[500],
-                      color: "white",
-                      cursor: "pointer",
-                    }}
-                  
-                  >
-                    S
+                  {true ? (<div> 
+                    
+                    <Button
+                      ref={anchorRefMenu}
+                      id="composition-button"
+                      aria-controls={openMenu ? 'composition-menu' : undefined}
+                      aria-expanded={openMenu ? 'true' : undefined}
+                      aria-haspopup="true"
+                      onClick={handleToggleMenu}
+                    >
+                    <Avatar
+                      className="text-white"
+                      onClick={handleUserClick}
+                      aria-controls={openMenu ? "basic-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={openMenu ? "true" : undefined}
+                      sx={{
+                        bgcolor: deepPurple[500],
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+
+                    >
+                      S
                     </Avatar>
-                  <Menu id="basic-menu"
-                   anchorE1={anchorE1}
-                  open={openUserMenu} 
-                  onClose={handleCloseUserMenu}
-                   MenuListProps={{"aria-labelledby":"basic-button",}}>
-                  <MenuItem 
-                   onClick={handleCloseUserMenu}
-                   >Profile</MenuItem>
 
-                  <MenuItem onClick={()=>navigate("/account/order")}>
-                  My Orders
-                  </MenuItem>
-
-                  <MenuItem>Logout</MenuItem>
-                  </Menu>
-                </div>
-                ):(
-                  <Button onClick={handleOpen}
-                  className={"text-sm font-medium text-gray-700 hover:text-gray-800"}>
-                    Signin
                   </Button>
-                )}
+                    <Popper
+                      open={openMenu}
+                      anchorEl={anchorRefMenu.current}
+                      role={undefined}
+                      placement="bottom-start"
+                      transition
+                      disablePortal
+                    >
+                      {({ TransitionProps, placement }) => (
+                        <Grow
+                          {...TransitionProps}
+                          style={{
+                            transformOrigin:
+                              placement === 'bottom-start' ? 'left top' : 'left bottom',
+                          }}
+                        >
+                          <Paper>
+                            <ClickAwayListener onClickAway={handleCloseMenu}>
+                              <MenuList
+                                autoFocusItem={openMenu}
+                                id="composition-menu"
+                                aria-labelledby="composition-button"
+                                onKeyDown={handleListKeyDown}
+                              >
+                                <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                                <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                                <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+                              </MenuList>
+                            </ClickAwayListener>
+                          </Paper>
+                        </Grow>
+                      )}
+                    </Popper>
+                  </div>
+                  ) : (
+                    <Button onClick={handleOpen}
+                      className={"text-sm font-medium text-gray-700 hover:text-gray-800"}>
+                      Signin
+                    </Button>
+                  )}
                 </div>
 
                 {/* Search */}
