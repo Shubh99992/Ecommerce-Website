@@ -461,7 +461,7 @@ React.useEffect(() => {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (<div> 
+                  {true ? (<div style={{zIndex: "1"}}> 
                     
                     <Button
                       ref={anchorRefMenu}
